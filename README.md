@@ -22,72 +22,55 @@ Testing the webserver.
 
 ## PROGRAM:
 ```
-from http.server import HTTPServer, BaseHTTPRequestHandler
-content = """
-<!DOCTYPE html>
-<html>
-<title> Top Software Industry </title>
+import platform
+from http.server import HTTPServer,BaseHTTPRequestHandler
+
+system_name = platform.system()
+node_name = platform.node()
+release = platform.release()
+version = platform.version()
+machine = platform.machine()
+processor = platform.processor()
+
+content='''
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My System Configuration</title>
+</head>
 <body>
-<table border ="2"  cellspacing ="10" cellpadding = "6" > 
-<caption> TOP FIVE REVENUE GENERATING SOFTWARE COMPANIES </caption>
-<tr>
-<th> S.No </th>
-<th> Company </th>
-<th> Revenue </th>
-</tr>
-
-<tr>
-<td> 1. </td>
-<td> Microsoft </td>
-<td> 65 Billion  </td>
-</tr>
-
-<tr>
-<td> 2. </td>
-<td> Oracle </td>
-<td> 29.6 Billion  </td>
-</tr>
-
-<tr>
-<td> 3. </td>
-<td> IBM </td>
-<td> 29.1 Billion  </td>
-</tr> 
-
-<tr>
-<td> 4. </td>
-<td> SAP </td> 
-<td> 6.4 Billion </td>
-</tr> 
- 
-<tr>
-<td> 5. </td>
-<td> Syamntec </td>
-<td> 5.6 Billion </td>
-</tr>
-
-
-</table>
+    <h1>My System Configuration</h1>
+    <ul>
+        <li>'''+system_name+'''</li>
+        <li>'''+node_name+'''</li>
+        <li>'''+release+'''</li>  
+        <li>'''+version+'''</li>  
+        <li>'''+machine+'''</li>  
+        <li>'''+processor+'''</li>  
+    </ul>
 </body>
 </html>
-"""
-class myhandler(BaseHTTPRequestHandler):
+'''
+
+class MyServer(BaseHTTPRequestHandler):
     def do_GET(self):
-        print("request received")
-        self.send_response(200)
-        self.send_header('content-type', 'text/html; charset=utf-8')
+        print("Get request received...")
+        self.send_response(200) 
+        self.send_header("content-type", "text/html")       
         self.end_headers()
         self.wfile.write(content.encode())
-server_address = ('',8000)
-httpd = HTTPServer(server_address,myhandler)
-print("my webserver is running...")
+
+print("This is my webserver") 
+server_address =('',8000)
+httpd = HTTPServer(server_address,MyServer)
 httpd.serve_forever()
 ```
-
 ## OUTPUT:
-![Screenshot 2024-09-11 083912](https://github.com/user-attachments/assets/3770587e-c135-4cc7-b106-f43ece9ed675)
 
-![Screenshot 2024-09-11 083250](https://github.com/user-attachments/assets/899e5902-367a-4045-85d3-ac0a1344f013)
+![image](https://github.com/user-attachments/assets/b179487b-f41c-4536-88d5-9d1f5503b5bd)
+
+![image](https://github.com/user-attachments/assets/567c8cfa-44d3-46ff-be2a-1a036367abd1)
 
 
 ## RESULT:
